@@ -39,7 +39,7 @@ async def create_order(body: dict, background_tasks: BackgroundTasks):
         response = await client.get(f'http://localhost:8000/products/{body["id"]}')
         if response.status_code != 200:
             raise HTTPException(status_code=400, detail="Product not found in Inventory")
-        product = response.json()
+        product = await response.json()
 
     order = Order(
         product_id=body['id'],
