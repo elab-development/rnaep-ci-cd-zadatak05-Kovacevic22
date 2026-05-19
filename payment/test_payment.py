@@ -34,7 +34,9 @@ def test_api_404(mock_get):
 @patch('main.httpx.AsyncClient.get', new_callable=AsyncMock)
 @patch('main.process_order')
 def test_api_post(mock_proc, mock_get):
+    mock_response = AsyncMock()
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = {"id": "p1", "price": 100.0}
+    mock_get.return_value = mock_response
     resp = client.post("/orders", json={"id": "p1", "quantity": 1})
     assert resp.status_code == 200
