@@ -17,8 +17,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install -r requirements.txt
-      - run: pytest test_payment.py
+      - run: pip install -r payment/requirements.txt
+      - run: pytest payment/test_payment.py
   
   deploy:
     needs: test # CD zavisi od uspeha testova (CI)
@@ -32,5 +32,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
+          context: ./payment
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/payment-service:latest
