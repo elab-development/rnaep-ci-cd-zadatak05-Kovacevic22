@@ -3,3 +3,4 @@ uvicorn[standard]
 redis-om>=0.2.1
 python-dotenv
 httpx
+pydantic-settings
